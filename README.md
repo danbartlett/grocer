@@ -236,6 +236,22 @@ describe "apple push notifications" do
 end
 ```
 
+If your tests are hanging, ensure `Grocer.pusher` is set up to not use a remote gateway or certificate.
+
+```ruby
+  if Rails.env.test?
+    Grocer.pusher(
+      retries:     3
+    )
+  else
+    Grocer.pusher(
+      certificate: CERT,
+      gateway:     GATEWAY,
+      retries:     3
+    )
+  end
+```
+
 ## Device Token
 
 A device token is obtained from within the iOS app. More details are in Apple's
